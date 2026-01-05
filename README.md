@@ -1,36 +1,161 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Product Showcase
 
-## Getting Started
+A minimalist one-page product showcase website inspired by OpenAI Supply's clean aesthetic. Features a simple admin panel for managing products with image hover effects.
 
-First, run the development server:
+## Features
+
+- **Minimalist Design**: Clean, gallery-style grid layout with generous whitespace
+- **Hover Effects**: Smooth transition between primary and secondary product images
+- **Admin Panel**: Full CRUD interface for managing products
+- **Image Upload**: Easy drag-and-drop image uploads to Supabase Storage
+- **Responsive**: Mobile-first design that works on all devices
+- **Fast**: Built with Next.js 14 App Router and ISR for optimal performance
+- **Secure**: Simple password-based authentication for admin access
+
+## Tech Stack
+
+- **Framework**: Next.js 14 (App Router)
+- **Database**: Supabase (PostgreSQL)
+- **Storage**: Supabase Storage
+- **Authentication**: NextAuth.js
+- **Styling**: Tailwind CSS v4
+- **Language**: TypeScript
+
+## Quick Start
+
+### 1. Clone and Install
+
+```bash
+git clone <your-repo-url>
+cd product-showcase
+npm install
+```
+
+### 2. Set Up Supabase
+
+Follow the detailed instructions in [SETUP.md](./SETUP.md) to:
+1. Create a Supabase project
+2. Run the database migration
+3. Create the storage bucket
+4. Get your API keys
+
+### 3. Configure Environment Variables
+
+Create a `.env.local` file in the root directory:
+
+```env
+# Supabase
+NEXT_PUBLIC_SUPABASE_URL=your-project-url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
+
+# NextAuth
+NEXTAUTH_SECRET=your-nextauth-secret  # Generate with: openssl rand -base64 32
+NEXTAUTH_URL=http://localhost:3000
+
+# Admin Password
+ADMIN_PASSWORD=your-secure-password
+```
+
+### 4. Run the Development Server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Visit:
+- **Public site**: http://localhost:3000
+- **Admin panel**: http://localhost:3000/admin/login
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+src/
+├── app/
+│   ├── page.tsx                    # Public homepage
+│   ├── layout.tsx                  # Root layout
+│   ├── admin/                      # Admin panel pages
+│   │   ├── page.tsx               # Dashboard
+│   │   ├── login/page.tsx         # Login
+│   │   └── products/              # Product management
+│   └── api/
+│       ├── auth/                   # NextAuth routes
+│       └── products/               # Product API endpoints
+├── components/
+│   ├── ProductCard.tsx             # Product card with hover
+│   ├── ProductGrid.tsx             # Responsive grid
+│   ├── ProductForm.tsx             # Create/edit form
+│   ├── ImageUpload.tsx             # Image upload UI
+│   └── AdminNav.tsx                # Admin navigation
+├── lib/
+│   ├── supabase/                   # Supabase clients
+│   └── db/                         # Database queries
+└── types/
+    └── index.ts                    # TypeScript types
+```
 
-## Learn More
+## Usage
 
-To learn more about Next.js, take a look at the following resources:
+### Adding Products
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Log in at `/admin/login` with your admin password
+2. Click "New Product"
+3. Fill in:
+   - **Title**: Product name
+   - **Year Launched**: Year the product was released
+   - **Primary Image**: Main product image (required)
+   - **Secondary Image**: Alternate view for hover effect (optional)
+4. Click "Create Product"
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Managing Products
 
-## Deploy on Vercel
+- **Edit**: Click "Edit" next to any product in the dashboard
+- **Delete**: Click "Delete" to remove a product (images are automatically deleted)
+- **View Site**: Click "View Site" in the admin nav to see the public page
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Design Philosophy
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The site follows a minimalist aesthetic inspired by OpenAI Supply:
+
+- **Pure white background** (#ffffff)
+- **Near-black text** (#171717)
+- **Generous whitespace** for breathing room
+- **Subtle borders** (1px, neutral colors)
+- **High-quality photography** as the focal point
+- **Smooth transitions** (500ms fade for hover effects)
+- **Responsive grid** adapting to all screen sizes
+
+## Deployment
+
+### Deploy to Vercel
+
+1. Push your code to GitHub
+2. Visit [vercel.com](https://vercel.com) and import your repository
+3. Configure environment variables in Vercel project settings
+4. Update `NEXTAUTH_URL` to your production domain
+5. Deploy
+
+### Environment Variables for Production
+
+Make sure to set all environment variables from `.env.local` in your Vercel project settings, updating `NEXTAUTH_URL` to your production URL.
+
+## Development
+
+```bash
+npm run dev        # Start development server
+npm run build      # Build for production
+npm run start      # Start production server
+npm run lint       # Run ESLint
+```
+
+## API Routes
+
+- `GET /api/products` - Fetch all products
+- `POST /api/products` - Create new product (requires auth)
+- `GET /api/products/[id]` - Fetch single product
+- `PATCH /api/products/[id]` - Update product (requires auth)
+- `DELETE /api/products/[id]` - Delete product (requires auth)
+
+## License
+
+MIT
