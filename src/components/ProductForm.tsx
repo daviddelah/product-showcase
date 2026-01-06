@@ -19,6 +19,7 @@ export default function ProductForm({ product, onCancel }: ProductFormProps) {
   const [yearLaunched, setYearLaunched] = useState(
     product?.year_launched?.toString() || ''
   );
+  const [category, setCategory] = useState(product?.category || '');
   const [primaryImage, setPrimaryImage] = useState<File | null>(null);
   const [secondaryImage, setSecondaryImage] = useState<File | null>(null);
   const [removeSecondary, setRemoveSecondary] = useState(false);
@@ -39,6 +40,7 @@ export default function ProductForm({ product, onCancel }: ProductFormProps) {
       const formData = new FormData();
       formData.append('title', title);
       formData.append('year_launched', yearLaunched);
+      formData.append('category', category);
 
       if (primaryImage) {
         formData.append('primary_image', primaryImage);
@@ -113,6 +115,20 @@ export default function ProductForm({ product, onCancel }: ProductFormProps) {
           max="2100"
           className="w-full px-4 py-2 border border-neutral-300 focus:border-neutral-900 focus:outline-none transition-colors"
           placeholder="2024"
+        />
+      </div>
+
+      <div>
+        <label htmlFor="category" className="block text-sm font-medium text-neutral-700 mb-2">
+          Category
+        </label>
+        <input
+          id="category"
+          type="text"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+          className="w-full px-4 py-2 border border-neutral-300 focus:border-neutral-900 focus:outline-none transition-colors"
+          placeholder="e.g., 10 Year, Sora II, GPT-5"
         />
       </div>
 

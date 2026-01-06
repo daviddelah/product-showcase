@@ -42,6 +42,7 @@ export async function POST(request: NextRequest) {
     const formData = await request.formData();
     const title = formData.get('title') as string;
     const yearLaunched = formData.get('year_launched') as string;
+    const category = formData.get('category') as string;
     const primaryImage = formData.get('primary_image') as File | null;
     const secondaryImage = formData.get('secondary_image') as File | null;
 
@@ -80,6 +81,7 @@ export async function POST(request: NextRequest) {
         id: productId,
         title,
         year_launched: parseInt(yearLaunched),
+        category: category || null,
         primary_image_url: primaryImageUrl,
         secondary_image_url: secondaryImageUrl
       })

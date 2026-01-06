@@ -7,11 +7,13 @@ export interface Product {
   created_at: string;
   updated_at: string;
   display_order: number;
+  category: string | null;
 }
 
 export interface ProductFormData {
   title: string;
   year_launched: number;
+  category?: string;
   primary_image?: File;
   secondary_image?: File;
   primary_image_url?: string;

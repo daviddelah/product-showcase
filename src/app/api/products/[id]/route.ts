@@ -63,6 +63,7 @@ export async function PATCH(
     const formData = await request.formData();
     const title = formData.get('title') as string;
     const yearLaunched = formData.get('year_launched') as string;
+    const category = formData.get('category') as string;
     const primaryImage = formData.get('primary_image') as File | null;
     const secondaryImage = formData.get('secondary_image') as File | null;
     const removeSecondary = formData.get('remove_secondary') === 'true';
@@ -72,6 +73,7 @@ export async function PATCH(
 
     if (title) updates.title = title;
     if (yearLaunched) updates.year_launched = parseInt(yearLaunched);
+    if (category !== null && category !== undefined) updates.category = category || null;
 
     // Handle primary image update
     if (primaryImage && primaryImage.size > 0) {

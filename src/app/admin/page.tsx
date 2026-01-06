@@ -101,6 +101,9 @@ export default function AdminDashboard() {
                   Year
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
+                  Category
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
                   Hover Effect
                 </th>
                 <th className="px-6 py-3 text-right text-xs font-medium text-neutral-500 uppercase tracking-wider">
@@ -129,6 +132,11 @@ export default function AdminDashboard() {
                   <td className="px-6 py-4">
                     <div className="text-sm text-neutral-500">
                       {product.year_launched}
+                    </div>
+                  </td>
+                  <td className="px-6 py-4">
+                    <div className="text-sm text-neutral-500">
+                      {product.category || '-'}
                     </div>
                   </td>
                   <td className="px-6 py-4">
