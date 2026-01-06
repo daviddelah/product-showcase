@@ -2,8 +2,8 @@ import { supabaseAdmin } from '@/lib/supabase/server';
 import ProductGrid from '@/components/ProductGrid';
 import type { Product } from '@/types';
 
-// Revalidate every 60 seconds (ISR)
-export const revalidate = 60;
+// Always fetch fresh data - no caching
+export const revalidate = 0;
 
 async function getProducts(): Promise<Product[]> {
   try {
