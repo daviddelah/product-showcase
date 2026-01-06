@@ -26,6 +26,13 @@ export default function ProductForm({ product, onCancel }: ProductFormProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
+
+    // Validate primary image for new products
+    if (!product && !primaryImage) {
+      setError('Primary image is required');
+      return;
+    }
+
     setLoading(true);
 
     try {

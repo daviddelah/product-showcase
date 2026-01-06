@@ -148,7 +148,6 @@ export default function ImageUpload({
           accept="image/*"
           onChange={(e) => handleFileChange(e.target.files?.[0] || null)}
           className="hidden"
-          required={required && !currentImageUrl}
         />
       </div>
 
